@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Complaint Details</title>
+</head>
+<body>
+<h1>Complaint Details</h1>
+<table>
+    <tr><th>Title</th><td th:text="${complaint.title}">Title</td></tr>
+    <tr><th>Description</th><td th:text="${complaint.description}">Description</td></tr>
+    <tr><th>Category</th><td th:text="${complaint.category}">Category</td></tr>
+    <tr><th>Sub-Category</th><td th:text="${complaint.subCategory}">Sub-Category</td></tr>
+    <tr><th>Priority</th><td th:text="${complaint.priority}">Priority</td></tr>
+    <tr><th>Status</th><td th:text="${complaint.status}">Status</td></tr>
+    <tr><th>Assigned To</th><td th:text="${complaint.assignedTo?.username}">Assigned To</td></tr>
+    <tr><th>Resolution</th><td th:text="${complaint.resolution}">Resolution</td></tr>
+</table>
+
+<h2>Internal Notes</h2>
+<ul>
+    <li th:each="note : ${complaint.internalNotes}" th:text="${note}">Internal note</li>
+</ul>
+
+<h3>Add Internal Note</h3>
+<form th:action="@{'/complaints/' + ${complaint.id} + '/notes'}" method="post">
+    <label>Note:</label>
+    <textarea name="note"></textarea>
+    <button type="submit">Add Note</button>
+</form>
+
+<h3>Assign Complaint</h3>
+<form th:action="@{'/complaints/' + ${complaint.id} + '/assign'}" method="post">
+    <label>User:</label>
+    <select name="userId">
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}">User Name</option>
+    </select>
+    <button type="submit">Assign</button>
+</form>
+
+<h3>Resolve Complaint</h3>
+<form th:action="@{'/complaints/' + ${complaint.id} + '/resolve'}" method="post">
+    <label>Resolution:</label>
+    <textarea name="resolution"></textarea>
+    <button type="submit">Resolve</button>
+</form>
+
+<a th:href="@{/complaints}">Back to Complaints</a>
+</body>
+</html>

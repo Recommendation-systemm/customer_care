@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <h2>New Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${newComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+
+    <h2>In Progress Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${inProgressComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+
+    <h2>Resolved Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${resolvedComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+
+    <h2>Closed Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${closedComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+
+    <a th:href="@{/complaints}">Back to Complaints</a>
+</body>
+</html>

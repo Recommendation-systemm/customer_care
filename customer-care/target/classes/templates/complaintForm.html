@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Complaint</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Submit Complaint</h1>
+<form th:action="@{/complaints}" th:object="${complaint}" method="post">
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" required />
+
+    <label>Description:</label>
+    <textarea th:field="*{description}" required></textarea>
+
+    <label>Category:</label>
+    <select id="category" th:field="*{category}">
+        <option th:each="category : ${categories}" th:value="${category.id}"
+                th:text="${category.name}">Category Name</option>
+    </select>
+
+    <label>Sub-Category:</label>
+    <select id="subCategory" th:field="*{subCategory}">
+        <!-- Options will be populated based on selected category -->
+    </select>
+
+    <label>Priority:</label>
+    <select th:field="*{priority}">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+    </select>
+
+    <!--Status will be assigned by server, no need to appear on client-side form-->
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function(){
+        $('#category').change(function(){
+            var categoryId = $(this).val();
+            $.ajax({
+                url: '/subcategories/' + categoryId,
+                success: function(data) {
+                    var subCategorySelect = $('#subCategory');
+                    subCategorySelect.empty();
+                    $.each(data, function(index, subcategory){
+                        subCategorySelect.append($('<option>', {
+                            value: subcategory.id,
+                            text: subcategory.name
+                        }));
+                    });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

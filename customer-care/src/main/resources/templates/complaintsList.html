@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Complaints List</title>
+</head>
+<body>
+<h1>List of Complaints</h1>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Sub-Category</th>
+        <th>Priority</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="complaint : ${complaints}">
+        <td th:text="${complaint.title}">Title</td>
+        <td th:text="${complaint.description}">Description</td>
+        <td th:text="${complaint.category}">Category</td>
+        <td th:text="${complaint.subCategory}">Sub-Category</td>
+        <td th:text="${complaint.priority}">Priority</td>
+        <td th:text="${complaint.status}">Status</td>
+    </tr>
+</table>
+</body>
+</html>
