@@ -1,8 +1,61 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Customer Care</title>
+    <title>Customer Care</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #28a745; /* Primary Green */
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            margin: 10px;
+            color: #fff;
+            background-color: #28a745; /* Primary Green */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker Green */
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .secondary-btn {
+            background-color: #ffc107; /* Secondary Yellow */
+        }
+
+        .secondary-btn:hover {
+            background-color: #e0a800; /* Darker Yellow */
+        }
+    </style>
 </head>
 <body>
-<h1>Welcome to Customer Care</h1>
+<h1>Welcome to Our Service Portal</h1>
+<p>Please choose your action:</p>
+<button onclick="location.href='/compliment'">Place a Compliment</button>
+<button class="secondary-btn" onclick="location.href='/complaints/new'">Place a Complaint</button>
 </body>
 </html>

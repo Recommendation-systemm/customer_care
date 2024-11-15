@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        .return-button {
+            background-color: #007BFF; /* Primary Blue */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .return-button:hover {
+            background-color: #0056b3; /* Darker Blue on Hover */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            color: #007BFF; /* Primary Blue */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #28a745; /* Primary Green */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #e6f2ff; /* Light Blue Hover */
+        }
+
+        a {
+            color: #007BFF; /* Primary Blue */
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:focus {
+            outline: none;
+        }
+
+        .dashboard-section {
+            margin-bottom: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            ul {
+                padding-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<a href="/admin" class="return-button">Back to admin</a>
+<div class="dashboard-section">
+    <h2>New Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${newComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+</div>
+
+<div class="dashboard-section">
+    <h2>In Progress Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${inProgressComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+</div>
+
+<div class="dashboard-section">
+    <h2>Resolved Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${resolvedComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+</div>
+
+<div class="dashboard-section">
+    <h2>Closed Complaints</h2>
+    <ul>
+        <li th:each="complaint : ${closedComplaints}">
+            <a th:href="@{'/complaints/' + ${complaint.id}}" th:text="${complaint.title}">Complaint Title</a>
+        </li>
+    </ul>
+</div>
+
+<a th:href="@{/complaints}" style="font-size: 1.2em; color: #007BFF;">Back to Complaints</a>
+
+</body>
+</html>

@@ -14,12 +14,16 @@ public class AdminController {
     @Autowired
     private ComplaintRepository complaintRepository;
 
-    @GetMapping("/admin/dashboard")
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
+    }
+    @GetMapping("/admin/complaints")
     public String adminDashboard(Model model) {
         model.addAttribute("newComplaints", complaintRepository.findByStatus(Status.NEW));
         model.addAttribute("inProgressComplaints", complaintRepository.findByStatus(Status.IN_PROGRESS));
         model.addAttribute("resolvedComplaints", complaintRepository.findByStatus(Status.RESOLVED));
         model.addAttribute("closedComplaints", complaintRepository.findByStatus(Status.CLOSED));
-        return "adminDashboard";
+        return "adminComplaints";
     }
 }

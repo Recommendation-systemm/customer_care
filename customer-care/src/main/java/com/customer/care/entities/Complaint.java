@@ -12,7 +12,11 @@ public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String name;
+    private String email;
+    private String phone;
+    private String subCounty;
+    private String ward;
     private String title;
     private String description;
     private String category;

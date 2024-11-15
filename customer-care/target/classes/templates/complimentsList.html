@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Compliment List</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f0f8f4; /* Light greenish background */
+          color: #333;
+          margin: 0;
+          padding: 20px;
+        }
+
+        .return-button {
+          background-color: #007BFF; /* Primary Blue */
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          text-decoration: none;
+          font-size: 1.2em;
+          display: inline-block;
+          margin-bottom: 20px;
+        }
+
+        .return-button:hover {
+          background-color: #0056b3; /* Darker Blue on Hover */
+        }
+
+        h1 {
+          text-align: center;
+          color: #2d6a4f; /* Dark green */
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px auto;
+          background-color: #fff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+          padding: 15px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+
+        th {
+          background-color: #2d6a4f; /* Primary green */
+          color: white;
+          font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+          background-color: #e6f2ff; /* Light blue for hover effect */
+        }
+
+        tbody tr:nth-child(odd) {
+          background-color: #e9f5e1; /* Light green */
+        }
+
+        @media (max-width: 768px) {
+          th, td {
+            padding: 10px;
+          }
+
+          h1 {
+            font-size: 24px;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Compliment List</h1>
+<a href="/" class="return-button">Back to index</a>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Sub-county</th>
+        <th>Ward</th>
+        <th>Title</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="compliment : ${compliments}">
+        <td th:text="${compliment.name}">Name</td>
+        <td th:text="${compliment.email}">Email</td>
+        <td th:text="${compliment.phone}">Phone</td>
+        <td th:text="${compliment.subCounty}">Sub-county</td>
+        <td th:text="${compliment.ward}">Ward</td>
+        <td th:text="${compliment.title}">Title</td>
+        <td th:text="${compliment.description}">Description</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,10 +1,147 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Complaint Details</title>
+    <style>
+        .return-button {
+            background-color: #007BFF; /* Primary Blue */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: inline-block;
+            margin-bottom: 20px;
+            }
+
+        .return-button:hover {
+            background-color: #0056b3; /* Darker Blue on Hover */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #28a745; /* Primary Green */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF; /* Primary Blue */
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #e6f2ff;
+        }
+
+        h2, h3 {
+            margin-top: 40px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        label {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            font-size: 1.1em;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #28a745; /* Primary Green */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker Green */
+        }
+
+        a {
+            font-size: 1em;
+            color: #007BFF; /* Primary Blue */
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            table th, table td {
+                font-size: 1em;
+                padding: 10px;
+            }
+
+            form {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+
 <h1>Complaint Details</h1>
+
+<a href="/" class="return-button">Back to Index</a>
 <table>
     <tr><th>Title</th><td th:text="${complaint.title}">Title</td></tr>
     <tr><th>Description</th><td th:text="${complaint.description}">Description</td></tr>
@@ -45,5 +182,6 @@
 </form>
 
 <a th:href="@{/complaints}">Back to Complaints</a>
+
 </body>
 </html>
