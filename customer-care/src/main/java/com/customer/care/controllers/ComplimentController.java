@@ -31,4 +31,6 @@ public class ComplimentController {
         model.addAttribute("compliments", complimentRepository.findAll());  // Retrieve all compliments from the database
         return "complimentsList";
     }
+
+
 }

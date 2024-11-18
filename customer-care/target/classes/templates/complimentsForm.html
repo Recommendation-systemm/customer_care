@@ -1,112 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8">
   <title>Compliment Form</title>
   <style>
-    .return-button {
-      background-color: #007BFF; /* Primary Blue */
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 1.2em;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-
-    .return-button:hover {
-      background-color: #0056b3; /* Darker Blue on Hover */
-    }
+    /* Add necessary styles */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8f4; /* Light greenish background */
-      margin: 0;
-      padding: 20px;
-      color: #333;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin: 0;
+        color: #333;
     }
 
     h1 {
-      text-align: center;
-      color: #2d6a4f; /* Dark green */
+        color: #007BFF;
+        font-size: 2em;
+        margin-bottom: 20px;
     }
 
     form {
-      background-color: #ffffff; /* White background for the form */
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: 0 auto;
+        max-width: 600px;
+        width: 100%;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-      color: #2d6a4f; /* Dark green */
+        display: block;
+        font-size: 1em;
+        margin-bottom: 5px;
+        font-weight: bold;
     }
 
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 2px solid #2d6a4f; /* Green border */
-      border-radius: 4px;
-      background-color: #e9f5e1; /* Light greenish background */
-      font-size: 16px;
-      color: #333;
+    input[type="text"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
     }
 
     textarea {
-      resize: vertical;
-      min-height: 100px;
+        height: 80px;
+        resize: vertical;
     }
 
     button {
-      background-color: #2d6a4f; /* Primary green */
-      color: #fff; /* White text */
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 4px;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+        font-size: 1em;
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #007BFF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
     }
 
     button:hover {
-      background-color: #1b4d33; /* Darker green on hover */
+        background-color: #0056b3;
     }
 
-    @media (max-width: 768px) {
-      form {
-        padding: 15px;
-      }
-
-      button {
-        width: 100%;
-        font-size: 14px;
-      }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
     }
   </style>
 </head>
 <body>
 
-<h1>Submit Compliment</h1>
-
-<a href="/" class="return-button">Back to Index</a>
-<form th:action="@{/compliment}" th:object="${compliment}" method="post">
+<h1>Compliment Form</h1>
+<form action="/compliments" method="post">
   <label>Name:</label>
-  <input type="text" th:field="*{name}"  />
+  <input type="text" th:field="*{name}" required />
 
-  <label>Email(optional):</label>
-  <input type="text" th:field="*{email}"  />
+  <label>Phone number:</label>
+  <input type="text" th:field="*{phone}" required />
 
-  <label>Phone number(optional):</label>
-  <input type="text" th:field="*{phone}"  />
-
-  <label>Sub-county:</label>
+  <label>Sub County:</label>
   <input type="text" th:field="*{subCounty}" required />
 
   <label>Ward:</label>
@@ -118,8 +98,75 @@
   <label>Description:</label>
   <textarea th:field="*{description}" required></textarea>
 
-  <button type="submit">Submit Compliment</button>
+  <!-- Type of Compliment Radio Buttons -->
+  <label>Type of Compliment:</label>
+  <div>
+    <input type="radio" th:field="*{complimentType}" value="Compliment" id="compliment" required />
+    <label for="compliment">Compliment</label>
+    <input type="radio" th:field="*{complimentType}" value="Suggestion" id="suggestion" />
+    <label for="suggestion">Suggestion</label>
+    <input type="radio" th:field="*{complimentType}" value="Other" id="other" />
+    <label for="other">Other</label>
+  </div>
+
+  <!-- Satisfaction Radio Buttons -->
+  <label>Are you satisfied with our service?</label>
+  <div>
+    <input type="radio" th:field="*{satisfaction}" value="Yes" id="satisfactionYes" required />
+    <label for="satisfactionYes">Yes</label>
+    <input type="radio" th:field="*{satisfaction}" value="No" id="satisfactionNo" />
+    <label for="satisfactionNo">No</label>
+  </div>
+
+  <!-- Explanation Text Area for Satisfaction -->
+  <label>Explain your answer (if any):</label>
+  <textarea th:field="*{satisfactionExplanation}"></textarea>
+
+  <label>Category:</label>
+  <select id="category" th:field="*{category}">
+    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category Name</option>
+  </select>
+
+  <label>Sub-Category:</label>
+  <select id="subCategory" th:field="*{subCategory}">
+    <!-- Options will be populated based on selected category -->
+  </select>
+
+  <label>Priority:</label>
+  <select th:field="*{priority}">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+
+  <div class="button-container">
+    <button type="button" onclick="location.href='/index'">Return to Homepage</button>
+    <button type="submit">Submit Compliment</button>
+  </div>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function(){
+      $('#category').change(function(){
+          var categoryId = $(this).val();
+          $.ajax({
+              url: '/subcategories/' + categoryId,
+              success: function(data) {
+                  var subCategorySelect = $('#subCategory');
+                  subCategorySelect.empty();
+                  subCategorySelect.append('<option value="" disabled selected>Select a sub-category</option>');
+                  $.each(data, function(index, subcategory){
+                      subCategorySelect.append($('<option>', {
+                          value: subcategory.id,
+                          text: subcategory.name
+                      }));
+                  });
+              }
+          });
+      });
+  });
+</script>
 
 </body>
 </html>

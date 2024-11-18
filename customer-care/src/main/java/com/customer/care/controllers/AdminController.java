@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class AdminController {
 
@@ -18,12 +20,31 @@ public class AdminController {
     public String admin() {
         return "admin";
     }
+    //@GetMapping("/admin/complaints")
+    //    public String adminDashboard(Model model) {
+    //    model.addAttribute("newComplaints", complaintRepository.findByStatus(Status.NEW));
+    //    model.addAttribute("inProgressComplaints", complaintRepository.findByStatus(Status.IN_PROGRESS));
+    //    model.addAttribute("resolvedComplaints", complaintRepository.findByStatus(Status.RESOLVED));
+    //    model.addAttribute("closedComplaints", complaintRepository.findByStatus(Status.CLOSED));
+    //    return "adminComplaints";
+    //}
+
     @GetMapping("/admin/complaints")
-    public String adminDashboard(Model model) {
-        model.addAttribute("newComplaints", complaintRepository.findByStatus(Status.NEW));
-        model.addAttribute("inProgressComplaints", complaintRepository.findByStatus(Status.IN_PROGRESS));
-        model.addAttribute("resolvedComplaints", complaintRepository.findByStatus(Status.RESOLVED));
-        model.addAttribute("closedComplaints", complaintRepository.findByStatus(Status.CLOSED));
+    public String adminComplaintsDashboard(Model model) {
+        List<Complaint> newComplaints = complaintRepository.findByStatus(Status.NEW);
+        List<Complaint> inProgressComplaints = complaintRepository.findByStatus(Status.IN_PROGRESS);
+        List<Complaint> resolvedComplaints = complaintRepository.findByStatus(Status.RESOLVED);
+
+        for (Complaint complaint : newComplaints) {
+            complaint.setStatus(Status.IN_PROGRESS);
+            complaintRepository.save(complaint);
+        }
+
+        model.addAttribute("inProgressComplaints", newComplaints);
+        model.addAttribute("inProgressComplaints", inProgressComplaints);
+        model.addAttribute("resolvedComplaints", resolvedComplaints);
+
         return "adminComplaints";
     }
+
 }

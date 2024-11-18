@@ -28,10 +28,12 @@ public class Complaint {
     private String priority;
 
     @ManyToOne
-    private User user;  // Complaint submitter
+    private User user;
 
     @ManyToOne
-    private User assignedTo;  // User to whom the complaint is assigned
+    @JoinColumn(name = "assigned_to_id")
+    private User assignedTo;
+
 
     private String resolution;
 
