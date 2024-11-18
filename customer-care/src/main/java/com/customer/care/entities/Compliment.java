@@ -17,7 +17,6 @@ public class Compliment {
     private String phone;
     private String subCounty;
     private String ward;
-    private String department;
     private String complimentType;
     private String satisfaction;
     private String satisfactionExplanation;
