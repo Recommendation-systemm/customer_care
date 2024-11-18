@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Complaint Form</title>
     <style>
         .return-button {
-            background-color: #007BFF; /* Primary Blue */
+            background-color: #007BFF;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -17,7 +17,7 @@
         }
 
         .return-button:hover {
-            background-color: #0056b3; /* Darker Blue on Hover */
+            background-color: #0056b3;
         }
 
         body {
@@ -32,7 +32,7 @@
         }
 
         h1 {
-            color: #28a745; /* Primary Green */
+            color: #28a745;
             font-size: 2.5em;
             margin-bottom: 20px;
         }
@@ -74,7 +74,7 @@
             font-size: 1em;
             padding: 10px 20px;
             color: #fff;
-            background-color: #28a745; /* Primary Green */
+            background-color: #28a745;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -83,15 +83,15 @@
         }
 
         button:hover {
-            background-color: #218838; /* Darker Green */
+            background-color: #218838;
         }
 
         .secondary-btn {
-            background-color: #ffc107; /* Secondary Yellow */
+            background-color: #ffc107;
         }
 
         .secondary-btn:hover {
-            background-color: #e0a800; /* Darker Yellow */
+            background-color: #e0a800;
         }
 
         .button-container {
@@ -99,11 +99,11 @@
             justify-content: space-between;
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
             }
+
             form {
                 width: 100%;
                 padding: 15px;
@@ -117,67 +117,72 @@
 <h1>Complaint Form</h1>
 
 <a href="/" class="return-button">Back to Index</a>
-<form action="/complaints" method="post">
-    <label>Name:</label>
-    <input type="text" th:field="*{name}"  />
+<form th:action="@{/complaints}" method="post" th:object="${complaint}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" />
 
-    <label>Phone number:</label>
-    <input type="text" th:field="*{phone}"  />
+    <label for="phone">Phone number:</label>
+    <input type="text" id="phone" th:field="*{phone}" />
 
-    <label>Sub County:</label>
-    <input type="text" th:field="*{subCounty}" required />
+    <label for="subCounty">Sub County:</label>
+    <input type="text" id="subCounty" th:field="*{subCounty}" required />
 
-    <label>Ward:</label>
-    <input type="text" th:field="*{ward}" required />
+    <label for="ward">Ward:</label>
+    <input type="text" id="ward" th:field="*{ward}" required />
 
-    <label>Title:</label>
-    <input type="text" th:field="*{title}" required />
+    <label for="title">Title:</label>
+    <input type="text" id="title" th:field="*{title}" required />
 
-    <label>Description:</label>
-    <textarea th:field="*{description}" required></textarea>
+    <label for="description">Description:</label>
+    <textarea id="description" th:field="*{description}" required></textarea>
 
-    <label>Category:</label>
+    <label for="category">Category:</label>
     <select id="category" th:field="*{category}" required>
-        <option th:each="category : ${categories}" th:value="${category.id}"
-                th:text="${category.name}">Category Name</option>
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category Name</option>
     </select>
 
-    <label>Sub-Category:</label>
+    <label for="subCategory">Sub-Category:</label>
     <select id="subCategory" th:field="*{subCategory}" required>
-        <!-- Options will be populated based on selected category -->
+        <option value="" disabled selected>Select a sub-category</option>
     </select>
 
-    <label>Priority:</label>
-    <select th:field="*{priority}" required>
+    <label for="priority">Priority:</label>
+    <select id="priority" th:field="*{priority}" required>
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
     </select>
 
     <div class="button-container">
-        <button class="secondary-btn" type="button" onclick="location.href='/index'">Return to Homepage</button>
+        <button class="secondary-btn" type="button" onclick="location.href='/'">Return to Homepage</button>
         <button type="submit">Submit Complaint</button>
     </div>
 </form>
 
 <script>
-    $(document).ready(function(){
-        $('#category').change(function(){
+    $(document).ready(function () {
+        $('#category').change(function () {
             var categoryId = $(this).val();
-            $.ajax({
-                url: '/subcategories/' + categoryId,
-                success: function(data) {
-                    var subCategorySelect = $('#subCategory');
-                    subCategorySelect.empty();
-                    subCategorySelect.append('<option value="" disabled selected>Select a sub-category</option>');
-                    $.each(data, function(index, subcategory){
-                        subCategorySelect.append($('<option>', {
-                            value: subcategory.id,
-                            text: subcategory.name
-                        }));
-                    });
-                }
-            });
+            if (categoryId) {
+                $.ajax({
+                    url: '/subcategories/' + categoryId,
+                    method: 'GET',
+                    success: function (data) {
+                        var subCategorySelect = $('#subCategory');
+                        subCategorySelect.empty();
+                        subCategorySelect.append('<option value="" disabled selected>Select a sub-category</option>');
+                        $.each(data, function (index, subcategory) {
+                            subCategorySelect.append($('<option>', {
+                                value: subcategory.id,
+                                text: subcategory.name
+                            }));
+                        });
+                    },
+                    error: function () {
+                        alert('Error loading subcategories');
+                    }
+                });
+            }
         });
     });
 </script>

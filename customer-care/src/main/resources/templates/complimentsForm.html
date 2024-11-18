@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <title>Compliment Form</title>
   <style>
-    /* Add necessary styles */
     body {
         font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
+        background-color: #ffffff; /* White background */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -17,7 +16,7 @@
     }
 
     h1 {
-        color: #007BFF;
+        color: #006838; /* Primary Green */
         font-size: 2em;
         margin-bottom: 20px;
     }
@@ -58,7 +57,7 @@
         font-size: 1em;
         padding: 10px 20px;
         color: #fff;
-        background-color: #007BFF;
+        background-color: #006838; /* Green */
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -67,40 +66,58 @@
     }
 
     button:hover {
-        background-color: #0056b3;
+        background-color: #004f2e; /* Darker Green */
     }
 
     .button-container {
         display: flex;
         justify-content: space-between;
     }
+
+    .button-container button:first-child {
+        background-color: #ebb422; /* Yellow */
+    }
+
+    .button-container button:first-child:hover {
+        background-color: #c9971b; /* Darker Yellow */
+    }
+
+    .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .radio-group label {
+        margin: 0;
+        font-weight: normal;
+    }
   </style>
 </head>
 <body>
 
-<h1>Compliment Form</h1>
-<form action="/compliments" method="post">
-  <label>Name:</label>
-  <input type="text" th:field="*{name}" required />
+<h1>Feedback Form</h1>
 
-  <label>Phone number:</label>
-  <input type="text" th:field="*{phone}" required />
+<form th:action="@{/compliment}" method="POST" th:object="${compliment}">
+  <div class="button-container">
+    <button type="button" onclick="location.href='/'">Return to Homepage</button>
+  </div>
 
-  <label>Sub County:</label>
-  <input type="text" th:field="*{subCounty}" required />
+  <label for="name">Name:</label>
+  <input type="text" id="name" th:field="*{name}" />
 
-  <label>Ward:</label>
-  <input type="text" th:field="*{ward}" required />
+  <label for="phone">Phone number:</label>
+  <input type="text" id="phone" th:field="*{phone}" />
 
-  <label>Title:</label>
-  <input type="text" th:field="*{title}" required />
+  <label for="subCounty">Sub County:</label>
+  <input type="text" id="subCounty" th:field="*{subCounty}" required />
 
-  <label>Description:</label>
-  <textarea th:field="*{description}" required></textarea>
+  <label for="ward">Ward:</label>
+  <input type="text" id="ward" th:field="*{ward}" required />
 
-  <!-- Type of Compliment Radio Buttons -->
-  <label>Type of Compliment:</label>
-  <div>
+  <label>It is our aim to serve you better. In order to help us ensure that our customer care services are of maximum value to you as our clients, please take some time to fill in this feedback form:</label>
+  <div class="radio-group">
     <input type="radio" th:field="*{complimentType}" value="Compliment" id="compliment" required />
     <label for="compliment">Compliment</label>
     <input type="radio" th:field="*{complimentType}" value="Suggestion" id="suggestion" />
@@ -109,38 +126,22 @@
     <label for="other">Other</label>
   </div>
 
-  <!-- Satisfaction Radio Buttons -->
+  <label>Please provide further instructions based on your feedback.</label>
+  <label for="department">Which department did you visit?:</label>
+  <input type="text" id="department" th:field="*{department}" required />
+
   <label>Are you satisfied with our service?</label>
-  <div>
+  <div class="radio-group">
     <input type="radio" th:field="*{satisfaction}" value="Yes" id="satisfactionYes" required />
     <label for="satisfactionYes">Yes</label>
     <input type="radio" th:field="*{satisfaction}" value="No" id="satisfactionNo" />
     <label for="satisfactionNo">No</label>
   </div>
 
-  <!-- Explanation Text Area for Satisfaction -->
-  <label>Explain your answer (if any):</label>
-  <textarea th:field="*{satisfactionExplanation}"></textarea>
-
-  <label>Category:</label>
-  <select id="category" th:field="*{category}">
-    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category Name</option>
-  </select>
-
-  <label>Sub-Category:</label>
-  <select id="subCategory" th:field="*{subCategory}">
-    <!-- Options will be populated based on selected category -->
-  </select>
-
-  <label>Priority:</label>
-  <select th:field="*{priority}">
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
+  <label for="satisfactionExplanation">Explain your answer (if any):</label>
+  <textarea id="satisfactionExplanation" th:field="*{satisfactionExplanation}"></textarea>
 
   <div class="button-container">
-    <button type="button" onclick="location.href='/index'">Return to Homepage</button>
     <button type="submit">Submit Compliment</button>
   </div>
 </form>

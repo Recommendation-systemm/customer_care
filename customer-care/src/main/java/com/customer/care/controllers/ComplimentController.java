@@ -22,15 +22,15 @@ public class ComplimentController {
 
     @PostMapping("/compliment")
     public String submitCompliment(Compliment compliment) {
+        System.out.println("Received compliment: " + compliment);
         complimentRepository.save(compliment);
         return "redirect:/compliments";
     }
 
     @GetMapping("/compliments")
     public String viewCompliments(Model model) {
-        model.addAttribute("compliments", complimentRepository.findAll());  // Retrieve all compliments from the database
+        model.addAttribute("compliments", complimentRepository.findAll());
         return "complimentsList";
     }
-
 
 }
