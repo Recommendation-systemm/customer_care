@@ -27,10 +27,10 @@ public class ComplimentController {
         return "redirect:/";
     }
 
-//    @GetMapping("/")
-//    public String viewCompliments(Model model) {
-//        model.addAttribute("compliments", complimentRepository.findAll());
-//        return "complimentsList";
-//    }
+    @GetMapping("/compliments")
+    public String viewCompliments(Model model) {
+        model.addAttribute("compliments", complimentRepository.findAll());
+        return "complimentsList";
+    }
 
 }
