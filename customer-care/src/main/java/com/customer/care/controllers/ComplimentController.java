@@ -24,13 +24,13 @@ public class ComplimentController {
     public String submitCompliment(Compliment compliment) {
         System.out.println("Received compliment: " + compliment);
         complimentRepository.save(compliment);
-        return "redirect:/compliments";
+        return "redirect:/";
     }
 
-    @GetMapping("/compliments")
-    public String viewCompliments(Model model) {
-        model.addAttribute("compliments", complimentRepository.findAll());
-        return "complimentsList";
-    }
+//    @GetMapping("/")
+//    public String viewCompliments(Model model) {
+//        model.addAttribute("compliments", complimentRepository.findAll());
+//        return "complimentsList";
+//    }
 
 }

@@ -78,28 +78,27 @@
 <body>
 
 <h1>Compliment List</h1>
-<a href="/" class="return-button">Back to index</a>
+<a href="/admin" class="return-button">Back to index</a>
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Sub-county</th>
+        <th>Sub county</th>
         <th>Ward</th>
-        <th>Title</th>
+        <th>Department</th>
+        <th>Feedback type</th>
+        <th>Satisfaction</th>
         <th>Description</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="compliment : ${compliments}">
-        <td th:text="${compliment.name}">Name</td>
-        <td th:text="${compliment.email}">Email</td>
-        <td th:text="${compliment.phone}">Phone</td>
         <td th:text="${compliment.subCounty}">Sub-county</td>
         <td th:text="${compliment.ward}">Ward</td>
-        <td th:text="${compliment.title}">Title</td>
-        <td th:text="${compliment.description}">Description</td>
+        <td th:text="${compliment.department}">Department</td>
+        <td th:text="${compliment.complimentType}">Feedback type</td>
+        <td th:text="${compliment.satisfaction}">Satisfied</td>
+        <td th:text="${compliment.satisfactionExplanation}">Reasons</td>
+
     </tr>
     </tbody>
 </table>

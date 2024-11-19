@@ -55,7 +55,7 @@ public class ComplaintController {
     public String submitComplaint(Complaint complaint) {
         complaintRepository.save(complaint);
         // return "redirect:/complaintsList";
-        return "redirect:/complaints";
+        return "redirect:/";
     }
 
     @GetMapping("/complaints")

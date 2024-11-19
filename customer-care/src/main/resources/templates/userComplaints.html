@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Complaints</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .return-button {
+            background-color: #007BFF; /* Primary Blue */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .return-button:hover {
+            background-color: #0056b3; /* Darker Blue on Hover */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2e7d32;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: auto;
+            overflow-x: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2e7d32; /* Primary green color */
+            color: #fff;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f1f8e9; /* Light green */
+            color: #333;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #e8f5e9;
+        }
+
+        tr:hover td {
+            background-color: #c8e6c9;
+        }
+
+        /* Priority color styling */
+        .low-priority {
+            color: #558b2f; /* Dark green */
+            font-weight: bold;
+        }
+
+        .medium-priority {
+            color: #ffb300; /* Yellow */
+            font-weight: bold;
+        }
+
+        .high-priority {
+            color: #c62828; /* Red */
+            font-weight: bold;
+        }
+
+        /* Limit description column width */
+        .description-column {
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            th {
+                display: none; /* Hide table headers */
+            }
+            td {
+                position: relative;
+                padding-left: 50%;
+                text-align: left;
+            }
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+                color: #2e7d32;
+            }
+            tr {
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<h1>My Complaints</h1>
+<a href="/" class="return-button">Back to Index</a>
+
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Sub-Category</th>
+            <th>Priority</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="complaint : ${complaints}">
+            <td th:text="${complaint.title}" data-label="Title">Title</td>
+            <td th:text="${complaint.description}" data-label="Description" class="description-column">Description</td>
+            <td th:text="${complaint.category}" data-label="Category">Category</td>
+            <td th:text="${complaint.subCategory}" data-label="Sub-Category">Sub-Category</td>
+            <td th:text="${complaint.priority}" data-label="Priority"
+                th:classappend="${complaint.priority == 'low' ? 'low-priority' :
+                                     complaint.priority == 'medium' ? 'medium-priority' :
+                                     complaint.priority == 'high' ? 'high-priority' : ''}">Priority</td>
+            <td th:text="${complaint.status}" data-label="Status">Status</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
