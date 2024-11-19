@@ -80,6 +80,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 10px;
+            align-items: left;
         }
 
         button:hover {
@@ -118,12 +119,6 @@
 
 <a href="/" class="return-button">Back to Index</a>
 <form th:action="@{/complaints}" method="post" th:object="${complaint}">
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" />
-
-    <label for="phone">Phone number:</label>
-    <input type="text" id="phone" th:field="*{phone}" />
-
     <label for="subCounty">Sub County:</label>
     <input type="text" id="subCounty" th:field="*{subCounty}" required />
 

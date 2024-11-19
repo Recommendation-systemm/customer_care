@@ -50,4 +50,11 @@ public class ComplaintService {
 
         return complaintRepository.save(complaint);
     }
+
+
+    public List<Complaint> getComplaintsByUser(User user) {
+        return complaintRepository.findByUser(user);
+    }
+
+
 }

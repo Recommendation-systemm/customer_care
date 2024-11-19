@@ -12,11 +12,9 @@ public class Compliment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String email;
-    private String phone;
     private String subCounty;
     private String ward;
+    private String department;
     private String complimentType;
     private String satisfaction;
     private String satisfactionExplanation;

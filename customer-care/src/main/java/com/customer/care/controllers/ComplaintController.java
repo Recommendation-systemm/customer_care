@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,10 @@ public class ComplaintController {
 
     @Autowired
     private ComplaintRepository complaintRepository;
+
+    public List<Complaint> getComplaintsByUser(User user) {
+        return complaintRepository.findByUser(user);
+    }
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -83,14 +89,12 @@ public class ComplaintController {
     public String assignComplaintToUser(@PathVariable Long id,
                                         @RequestParam Long userId,
                                         RedirectAttributes redirectAttributes) {
-        // Fetch the complaint by ID
         Optional<Complaint> optionalComplaint = complaintRepository.findById(id);
         if (optionalComplaint.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Complaint not found.");
             return "redirect:/complaints";
         }
 
-        // Fetch the user by ID
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "User not found.");
@@ -127,7 +131,6 @@ public class ComplaintController {
 
         return "redirect:/complaints";
     }
-
 
 
 }

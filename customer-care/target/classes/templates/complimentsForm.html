@@ -16,7 +16,7 @@
     }
 
     h1 {
-        color: #007BFF;
+        color: #006838 ;
         font-size: 2em;
         margin-bottom: 20px;
     }
@@ -57,7 +57,7 @@
         font-size: 1em;
         padding: 10px 20px;
         color: #fff;
-        background-color: #007BFF;
+        background-color: #ebb422;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -73,17 +73,27 @@
         display: flex;
         justify-content: space-between;
     }
+
+    .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .radio-group label {
+        margin: 0;
+        font-weight: normal;
+    }
   </style>
 </head>
 <body>
 
-<h1>Compliment Form</h1>
-<form th:action="@{/compliments}" method="post" th:object="${compliment}">
-  <label for="name">Name:</label>
-  <input type="text" id="name" th:field="*{name}" required />
-
-  <label for="phone">Phone number:</label>
-  <input type="text" id="phone" th:field="*{phone}" required />
+<h1>Feedback Form</h1>
+<form th:action="@{/compliment}" method="post" th:object="${compliment}">
+  <div class="button-container">
+    <button type="button" onclick="location.href='/'">Return to Homepage</button>
+  </div>
 
   <label for="subCounty">Sub County:</label>
   <input type="text" id="subCounty" th:field="*{subCounty}" required />
@@ -91,8 +101,8 @@
   <label for="ward">Ward:</label>
   <input type="text" id="ward" th:field="*{ward}" required />
 
-  <label>Type of Compliment:</label>
-  <div>
+  <label>It is our aim to serve you better. In order to help us ensure that our customer care services are of maximum value to you as our clients, please take some time to fill in this feedback form:</label>
+  <div class="radio-group">
     <input type="radio" th:field="*{complimentType}" value="Compliment" id="compliment" required />
     <label for="compliment">Compliment</label>
     <input type="radio" th:field="*{complimentType}" value="Suggestion" id="suggestion" />
@@ -101,8 +111,12 @@
     <label for="other">Other</label>
   </div>
 
+  <label>Please provide further instructions based on your feedback.</label>
+  <label for="department">Which department did you visit?:</label>
+  <input type="text" id="department" th:field="*{department}" required />
+
   <label>Are you satisfied with our service?</label>
-  <div>
+  <div class="radio-group">
     <input type="radio" th:field="*{satisfaction}" value="Yes" id="satisfactionYes" required />
     <label for="satisfactionYes">Yes</label>
     <input type="radio" th:field="*{satisfaction}" value="No" id="satisfactionNo" />
@@ -113,7 +127,6 @@
   <textarea id="satisfactionExplanation" th:field="*{satisfactionExplanation}"></textarea>
 
   <div class="button-container">
-    <button type="button" onclick="location.href='/index'">Return to Homepage</button>
     <button type="submit">Submit Compliment</button>
   </div>
 </form>
