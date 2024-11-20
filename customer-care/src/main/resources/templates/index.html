@@ -1,5 +1,6 @@
+
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -104,92 +105,78 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">UG Feedback Portal</a>
+
+            <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+
+            <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                <li class="nav-item">
+                    <a href="/register" class="btn btn-outline-primary me-2"> Register</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/login" class="btn btn-primary me-2">Login</a>
+                </li>
+            </ul>
+        </nav>
+
+
+
+
+    <h1>Welcome to Our Service Portal</h1>
+    <p>Please choose your action:</p>
+
+    <div class="button-container">
+        <button onclick="showPopup('compliment')">Place a Compliment</button>
+        <button class="secondary-btn" onclick="showPopup('complaint')">Place a Complaint</button>
     </div>
-</nav>
 
-
-
-
-<h1>Welcome to Our Service Portal</h1>
-<p>Please choose your action:</p>
-
-<div class="button-container">
-    <button onclick="showPopup('compliment')">Place a Compliment</button>
-    <button class="secondary-btn" onclick="showPopup('complaint')">Place a Complaint</button>
-</div>
-
-<div class="popup-overlay" id="popupOverlay">
-    <div class="popup-content">
-        <h2>Choose your action</h2>
-        <p>Would you like to share your details or proceed anonymously?</p>
-        <button id="loginButton">Log In</button>
-        <button id="anonymousButton">anonymous</button>
-        <br><br>
-        <button class="close-btn" onclick="closePopup()">Close</button>
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <h2>Choose your action</h2>
+            <p>Would you like to share your details or proceed anonymously?</p>
+            <button id="loginButton">Log In</button>
+            <button id="anonymousButton">anonymous</button>
+            <br><br>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
     </div>
-</div>
 
-<script>
-    let chosenAction = null;
+    <script>
+        let chosenAction = null;
 
-    function showPopup(action) {
-        chosenAction = action;
-        document.getElementById('popupOverlay').style.display = 'flex';
-    }
-
-    function closePopup() {
-        document.getElementById('popupOverlay').style.display = 'none';
-    }
-
-    document.getElementById('loginButton').addEventListener('click', function () {
-        if (chosenAction === 'compliment') {
-            window.location.href = '/login?redirect=compliment';
-        } else if (chosenAction === 'complaint') {
-            window.location.href = '/login?redirect=complaint';
+        function showPopup(action) {
+            chosenAction = action;
+            document.getElementById('popupOverlay').style.display = 'flex';
         }
-    });
 
-    document.getElementById('anonymousButton').addEventListener('click', function () {
-        if (chosenAction === 'compliment') {
-            window.location.href = '/compliment';
-        } else if (chosenAction === 'complaint') {
-            window.location.href = '/complaints/new';
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
         }
-    });
-</script>
+
+        document.getElementById('loginButton').addEventListener('click', function () {
+            if (chosenAction === 'compliment') {
+<!--                window.location.href = '/login?redirect=compliment';-->
+                window.location.href = '/compliment';
+            } else if (chosenAction === 'complaint') {
+                window.location.href = '/complaint';
+<!--                window.location.href = '/login?redirect=complaint';-->
+            }
+        });
+
+        document.getElementById('anonymousButton').addEventListener('click', function () {
+            if (chosenAction === 'compliment') {
+                window.location.href = '/anonymous/compliment';
+            } else if (chosenAction === 'complaint') {
+                window.location.href = '/anonymous/complaint';
+            }
+        });
+    </script>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -198,154 +185,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Customer Care</title>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            text-align: center;-->
-<!--            background-color: #f9f9f2;-->
-<!--            color: #333;-->
-<!--            margin: 0;-->
-<!--            padding: 20px;-->
-<!--        }-->
-
-<!--        h1 {-->
-<!--            color: #28a745; /* Primary Green */-->
-<!--            font-size: 2.5em;-->
-<!--            margin-bottom: 0.5em;-->
-<!--        }-->
-
-<!--        p {-->
-<!--            font-size: 1.2em;-->
-<!--            margin-bottom: 20px;-->
-<!--        }-->
-
-<!--        .button-container {-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            gap: 10px; /* Space between buttons */-->
-<!--            margin-top: 20px;-->
-<!--        }-->
-
-<!--        button {-->
-<!--            font-size: 1em;-->
-<!--            padding: 10px 20px;-->
-<!--            color: #fff;-->
-<!--            background-color: #28a745; /* Primary Green */-->
-<!--            border: none;-->
-<!--            border-radius: 5px;-->
-<!--            cursor: pointer;-->
-<!--            transition: background-color 0.3s ease;-->
-<!--        }-->
-
-<!--        button:hover {-->
-<!--            background-color: #218838; /* Darker Green */-->
-<!--        }-->
-
-<!--        button:focus {-->
-<!--            outline: none;-->
-<!--        }-->
-
-<!--        .secondary-btn {-->
-<!--            background-color: #ffc107; /* Secondary Yellow */-->
-<!--        }-->
-
-<!--        .secondary-btn:hover {-->
-<!--            background-color: #e0a800; /* Darker Yellow */-->
-<!--        }-->
-
-<!--        .popup-overlay {-->
-<!--            display: none;-->
-<!--            position: fixed;-->
-<!--            top: 0;-->
-<!--            left: 0;-->
-<!--            width: 100%;-->
-<!--            height: 100%;-->
-<!--            background-color: rgba(0, 0, 0, 0.5);-->
-<!--            justify-content: center;-->
-<!--            align-items: center;-->
-<!--            z-index: 999;-->
-<!--        }-->
-
-<!--        .popup-content {-->
-<!--            background-color: white;-->
-<!--            padding: 20px;-->
-<!--            border-radius: 8px;-->
-<!--            width: 300px;-->
-<!--            text-align: center;-->
-<!--        }-->
-
-<!--        .popup-content button {-->
-<!--            background-color: #007bff; /* Blue */-->
-<!--        }-->
-
-<!--        .popup-content button:hover {-->
-<!--            background-color: #0056b3; /* Darker Blue */-->
-<!--        }-->
-
-<!--        .close-btn {-->
-<!--            background-color: #dc3545; /* Red */-->
-<!--        }-->
-
-<!--        .close-btn:hover {-->
-<!--            background-color: #c82333; /* Darker Red */-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<h1>Welcome to Our Service Portal</h1>-->
-<!--<p>Please choose your action:</p>-->
-
-<!--<div class="button-container">-->
-<!--    <button onclick="showPopup('compliment')">Place a Compliment</button>-->
-<!--    <button class="secondary-btn" onclick="showPopup('complaint')">Place a Complaint</button>-->
-<!--</div>-->
-
-<!--<div class="popup-overlay" id="popupOverlay">-->
-<!--    <div class="popup-content">-->
-<!--        <h2>Choose your action</h2>-->
-<!--        <p>Would you like to share your details or proceed anonymously?</p>-->
-<!--        <button id="loginButton">Log In</button>-->
-<!--        <button id="anonymousButton">anonymous</button>-->
-<!--        <br><br>-->
-<!--        <button class="close-btn" onclick="closePopup()">Close</button>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<script>-->
-<!--    let chosenAction = null;-->
-
-<!--    function showPopup(action) {-->
-<!--        chosenAction = action;-->
-<!--        document.getElementById('popupOverlay').style.display = 'flex';-->
-<!--    }-->
-
-<!--    function closePopup() {-->
-<!--        document.getElementById('popupOverlay').style.display = 'none';-->
-<!--    }-->
-
-<!--    document.getElementById('loginButton').addEventListener('click', function () {-->
-<!--        if (chosenAction === 'compliment') {-->
-<!--            window.location.href = '/login?redirect=compliment';-->
-<!--        } else if (chosenAction === 'complaint') {-->
-<!--            window.location.href = '/login?redirect=complaint';-->
-<!--        }-->
-<!--    });-->
-
-<!--    document.getElementById('anonymousButton').addEventListener('click', function () {-->
-<!--        if (chosenAction === 'compliment') {-->
-<!--            window.location.href = '/compliment';-->
-<!--        } else if (chosenAction === 'complaint') {-->
-<!--            window.location.href = '/complaints/new';-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
-
-<!--</body>-->
-<!--</html>-->

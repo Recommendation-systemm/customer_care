@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -14,8 +16,9 @@ public class WbConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**").permitAll() // Unprotected routes
-                        .requestMatchers("/dashboard", "/profile").authenticated() // Protected routes
+                        .requestMatchers("/", "/login","/layout","/home",  "/register", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/anonymous/**").permitAll()
+                        .requestMatchers("/dashboard", "/profile","/compliment/**","/complaint/**").authenticated() // Protected routes
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Routes for admin only
                 )
                 .formLogin(login -> login
@@ -24,10 +27,15 @@ public class WbConfig {
 //                        .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+//                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
-                        .permitAll()
+//                        .permitAll()
                 );
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

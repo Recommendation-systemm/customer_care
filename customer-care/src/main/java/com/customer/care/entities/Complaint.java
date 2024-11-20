@@ -26,11 +26,11 @@ public class Complaint {
     private String priority;
 
     @ManyToOne
-    private User user;
+    private AppUser user;
 
     @ManyToOne
     @JoinColumn(name = "assigned_to_id")
-    private User assignedTo;
+    private AppUser assignedTo;
 
 
     private String resolution;

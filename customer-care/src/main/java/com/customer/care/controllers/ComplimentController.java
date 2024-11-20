@@ -19,6 +19,12 @@ public class ComplimentController {
         model.addAttribute("compliment", new Compliment());
         return "complimentsForm";
     }
+    @GetMapping("/anonymous/compliment")
+    public String anonymousComplement(Model model) {
+        model.addAttribute("anonymous",true);
+        model.addAttribute("compliment", new Compliment());
+        return "complimentsForm";
+    }
 
     @PostMapping("/compliment")
     public String submitCompliment(Compliment compliment) {

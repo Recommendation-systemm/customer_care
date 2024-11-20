@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +21,7 @@ public class ComplaintController {
     @Autowired
     private ComplaintRepository complaintRepository;
 
-    public List<Complaint> getComplaintsByUser(User user) {
+    public List<Complaint> getComplaintsByUser(AppUser user) {
         return complaintRepository.findByUser(user);
     }
 
@@ -42,8 +40,28 @@ public class ComplaintController {
         return "index";
 
     }
+    @GetMapping("/home")
+    public String home(Model model)
+    {
+        model.addAttribute("title", "Home Page");
+        return "layout";
 
-    @GetMapping("/complaints/new")
+    }
+
+    @GetMapping("/anonymous")
+    public String anonymous() {
+        return "redirect:/anonymous/complaint";
+    }
+
+    @GetMapping("/anonymous/complaint")
+    public String anonymousComplaint(Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("complaint", new Complaint());
+        model.addAttribute("categories", categories);
+        return "complaintForm";
+    }
+
+    @GetMapping("/complaint")
     public String showComplaintForm(Model model) {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("complaint", new Complaint());
@@ -95,14 +113,14 @@ public class ComplaintController {
             return "redirect:/complaints";
         }
 
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<AppUser> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "User not found.");
             return "redirect:/complaints/" + id;
         }
 
         Complaint complaint = optionalComplaint.get();
-        User user = optionalUser.get();
+        AppUser user = optionalUser.get();
         complaint.setAssignedTo(user);
 
         complaintRepository.save(complaint);

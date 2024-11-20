@@ -15,8 +15,8 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private Set<AppUser> users;
 
     @Enumerated(EnumType.STRING)
     private RoleType type;

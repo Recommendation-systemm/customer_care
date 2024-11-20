@@ -1,11 +1,12 @@
 package com.customer.care.repositories;
 
-import com.customer.care.entities.Role;
-import com.customer.care.entities.User;
+import com.customer.care.entities.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String email);
+@Repository
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    AppUser findByEmail(String email);
 
 }
 

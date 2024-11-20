@@ -2,7 +2,7 @@ package com.customer.care.services;
 
 import com.customer.care.entities.Complaint;
 import com.customer.care.entities.Status;
-import com.customer.care.entities.User;
+import com.customer.care.entities.AppUser;
 import com.customer.care.repositories.ComplaintRepository;
 import com.customer.care.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ComplaintService {
         Complaint complaint = complaintRepository.findById(complaintId)
                 .orElseThrow(() -> new RuntimeException("Complaint not found"));
 
-        User user = userRepository.findById(userId)
+        AppUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         complaint.setAssignedTo(user);
@@ -52,7 +52,7 @@ public class ComplaintService {
     }
 
 
-    public List<Complaint> getComplaintsByUser(User user) {
+    public List<Complaint> getComplaintsByUser(AppUser user) {
         return complaintRepository.findByUser(user);
     }
 
