@@ -2,6 +2,8 @@ package com.customer.care.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +21,11 @@ public class Complaint {
     private String description;
     private String category;
     private String subCategory;
+
+    @ManyToOne // Assuming a complaint belongs to one user
+    @JoinColumn(name = "created_by", referencedColumnName = "id") // Store user ID
+    private AppUser createdBy;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.NEW;

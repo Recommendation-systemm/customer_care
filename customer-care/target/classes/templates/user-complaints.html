@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Complaints List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+<body>
+
+<table id="complaintsTable" class="display">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+</table>
+
+<script>
+if ($.fn.DataTable.isDataTable("#complaintsTable")) {
+    $('#complaintsTable').DataTable().destroy();
+}
+
+<!--$('#complaintsTable').DataTable({-->
+<!--    "processing": true,-->
+<!--    "serverSide": true,-->
+<!--    "ajax": {-->
+<!--        "url": "/api/complaints/paged",-->
+<!--        "type": "GET"-->
+<!--    },-->
+<!--    "deferRender": true, // Improves performance by delaying row rendering-->
+<!--    "columns": [-->
+<!--        { "data": "id" },-->
+<!--        { "data": "description" },-->
+<!--        { "data": "createdAt" }-->
+<!--    ]-->
+<!--});-->
+
+$('#complaintsTable').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ajax": {
+        "url": "/user/complaint/paged",
+        "type": "GET",
+        "data": function(d) {
+            d.page = d.start / d.length; // Convert start index to page number
+            d.size = d.length; // Number of records per page
+            d.sortColumn = d.sortColumn; // Sort Column
+            d.search = d.search.value; // Pass search term
+        },
+        "dataSrc": "data"
+    },
+    "deferRender": true,
+    "columns": [
+        { "data": "id" },
+        { "data": "description" },
+        { "data": "createdAt" }
+    ],
+    "paging": true,
+    "searching": true,
+    "ordering": true
+});
+
+
+</script>
+
+</body>
+</html>
+
+
+
+<!--<h2 xmlns:th="http://www.w3.org/1999/xhtml">My Complaints</h2>-->
+<!--&lt;!&ndash; DataTables CSS &ndash;&gt;-->
+<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">-->
+
+<!--&lt;!&ndash; jQuery and DataTables JS &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>-->
+
+<!--<div class="button-container">-->
+<!--    <button class="secondary-btn" type="button" onclick="location.href='/'">Return to Homepage</button>-->
+<!--</div>-->
+<!--<table id="complaintsTable" class="display">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Category</th>-->
+<!--        <th>SubCategory</th>-->
+<!--        <th>Created At</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="complaint : ${complaints}">-->
+<!--        <td th:text="${complaint.id}"></td>-->
+<!--        <td th:text="${complaint.description}"></td>-->
+<!--        <td th:text="${complaint.category}"></td>-->
+<!--        <td th:text="${complaint.subCategory}"></td>-->
+<!--        <td th:text="${#temporals.format(complaint.createdAt, 'yyyy-MM-dd HH:mm')}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--<script th:inline="javascript">-->
+<!--    /* <![CDATA[ */-->
+<!--&lt;!&ndash;   $(document).ready(function () {&ndash;&gt;-->
+<!--&lt;!&ndash;        $('#complaintsTable').DataTable({&ndash;&gt;-->
+<!--&lt;!&ndash;            "pageLength": 1,  // Show only 10 items per page&ndash;&gt;-->
+<!--&lt;!&ndash;            "lengthMenu": [1, 2, 50, 100],  // Allow user to change items per page&ndash;&gt;-->
+<!--&lt;!&ndash;            "ordering": true,  // Enable sorting&ndash;&gt;-->
+<!--&lt;!&ndash;            "searching": true,  // Enable search&ndash;&gt;-->
+<!--&lt;!&ndash;            "info": true,  // Show info (e.g., "Showing 1 to 10 of 50 entries")&ndash;&gt;-->
+<!--&lt;!&ndash;            "paging": true,  // Enable pagination&ndash;&gt;-->
+<!--&lt;!&ndash;            "language": {&ndash;&gt;-->
+<!--&lt;!&ndash;                "search": "Filter records:",  // Customize search box placeholder&ndash;&gt;-->
+<!--&lt;!&ndash;                "lengthMenu": "Show _MENU_ entries"&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+<!--    /* ]]> */-->
+<!--</script>-->
+
+<!--<script>-->
+
+<!--</script>-->
+

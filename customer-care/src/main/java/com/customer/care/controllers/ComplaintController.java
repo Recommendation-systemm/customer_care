@@ -7,11 +7,14 @@ import com.customer.care.repositories.UserRepository;
 import com.customer.care.repositories.SubcategoryRepository;
 import com.customer.care.services.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +56,7 @@ public class ComplaintController {
         return "redirect:/anonymous/complaint";
     }
 
+
     @GetMapping("/anonymous/complaint")
     public String anonymousComplaint(Model model) {
         List<Category> categories = categoryRepository.findAll();
@@ -61,7 +65,7 @@ public class ComplaintController {
         return "complaintForm";
     }
 
-    @GetMapping("/complaint")
+    @GetMapping("/user/complaint")
     public String showComplaintForm(Model model) {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("complaint", new Complaint());
@@ -69,12 +73,10 @@ public class ComplaintController {
         return "complaintForm";
     }
 
-    @PostMapping("/complaints")
-    public String submitComplaint(Complaint complaint) {
-        complaintRepository.save(complaint);
-        // return "redirect:/complaintsList";
-        return "redirect:/";
-    }
+
+
+
+
 
     @GetMapping("/complaints")
     public String listComplaints(Model model) {

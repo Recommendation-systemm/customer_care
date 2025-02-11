@@ -3,6 +3,8 @@ package com.customer.care.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Table(name = "compliments")
@@ -18,4 +20,9 @@ public class Compliment {
     private String complimentType;
     private String satisfaction;
     private String satisfactionExplanation;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", referencedColumnName = "id")
+    private AppUser createdBy;
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
