@@ -6,6 +6,10 @@ import com.customer.care.entities.AppUser;
 import com.customer.care.repositories.ComplaintRepository;
 import com.customer.care.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,6 +20,22 @@ public class ComplaintService {
 
     @Autowired
     private ComplaintRepository complaintRepository;
+
+    // ✅ Add this method to fetch paginated complaints
+    public Page<Complaint> getAllPaged(Pageable pageable) {
+        return complaintRepository.findAll(pageable);
+    }
+
+    public Page<Complaint> getComplaintsPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return complaintRepository.findAll(pageable);
+    }
+
+    public Page<Complaint> searchComplaints(String keyword, Pageable pageable) {
+        return complaintRepository.findByDescriptionContainingIgnoreCase(keyword, pageable);
+    }
+
+
 
     public Complaint addInternalNote(Long complaintId, String note) {
         Complaint complaint = complaintRepository.findById(complaintId).orElseThrow(() -> new RuntimeException("Complaint not found"));

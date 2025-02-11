@@ -1,0 +1,20 @@
+<h2 xmlns:th="http://www.w3.org/1999/xhtml">My Compliments</h2>
+<div class="button-container">
+  <button class="secondary-btn" type="button" onclick="location.href='/'">Return to Homepage</button>
+</div>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Satisfaction</th>
+    <th>Created At</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="compliment : ${compliments}">
+    <td th:text="${compliment.id}"></td>
+    <td th:text="${compliment.satisfaction}"></td>
+    <td th:text="${#temporals.format(compliment.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+  </tr>
+  </tbody>
+</table>

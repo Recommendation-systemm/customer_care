@@ -90,16 +90,27 @@
 <body>
 
 <h1>Feedback Form</h1>
-<form th:action="@{/compliment}" method="post" th:object="${compliment}">
+<form th:action="@{/user/compliment}" method="post" th:object="${compliment}">
   <div class="button-container">
-    <button type="button" onclick="location.href='/'">Return to Homepage</button>
+    <a th:href="@{/}">
+      <button type="button">Return to Homepage</button>
+
+    </a>
   </div>
 
-  <label for="subCounty">Sub County:</label>
-  <input type="text" id="subCounty" th:field="*{subCounty}" required />
+<!--  <label for="subCounty">Sub County:</label>-->
+<!--  <input type="text" id="subCounty" th:field="*{subCounty}" required />-->
 
-  <label for="ward">Ward:</label>
-  <input type="text" id="ward" th:field="*{ward}" required />
+  <label for="subCounty">Sub County:</label>
+  <select id="subCounty" th:field="*{subCounty}" required th:data-url="@{/subcounty/wards/}">
+    <option value="" disabled selected>Select SubCounty</option>
+    <option th:each="subCounty : ${subCounties}" th:value="${subCounty.id}" th:text="${subCounty.subCountyName}">Sub-County</option>
+  </select>
+
+  <label for="ward">Sub-Category:</label>
+  <select id="ward" th:field="*{ward}" required>
+    <option value="" disabled selected>Select Ward</option>
+  </select>
 
   <label>It is our aim to serve you better. In order to help us ensure that our customer care services are of maximum value to you as our clients, please take some time to fill in this feedback form:</label>
   <div class="radio-group">
@@ -113,7 +124,11 @@
 
   <label>Please provide further instructions based on your feedback.</label>
   <label for="department">Which department did you visit?:</label>
-  <input type="text" id="department" th:field="*{department}" required />
+  <select id="department" th:field="*{department}" required>
+    <option value="" disabled selected>Select Department</option>
+    <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}">Department</option>
+  </select>
+<!--  <input type="text" id="department" th:field="*{department}" required />-->
 
   <label>Are you satisfied with our service?</label>
   <div class="radio-group">
@@ -133,25 +148,35 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function(){
-      $('#category').change(function(){
-          var categoryId = $(this).val();
-          $.ajax({
-              url: '/subcategories/' + categoryId,
-              success: function(data) {
-                  var subCategorySelect = $('#subCategory');
-                  subCategorySelect.empty();
-                  subCategorySelect.append('<option value="" disabled selected>Select a sub-category</option>');
-                  $.each(data, function(index, subcategory){
-                      subCategorySelect.append($('<option>', {
-                          value: subcategory.id,
-                          text: subcategory.name
-                      }));
-                  });
-              }
-          });
-      });
-  });
+$(document).ready(function () {
+        $('#subCounty').change(function () {
+         var subCountyId = $(this).val();
+        var baseUrl = $(this).data('url'); // Get the base URL from Thymeleaf
+
+            var subCountyId = $(this).val();
+            if (subCountyId) {
+                $.ajax({
+                url: baseUrl + subCountyId,  // Construct the dynamic UR
+                    //url: '/subcounty/wards/' + subCountyId,
+                    method: 'GET',
+                    success: function (data) {
+                        var wardSelect = $('#ward');
+                        wardSelect.empty();
+                        wardSelect.append('<option value="" disabled selected>Select Ward</option>');
+                        $.each(data, function (index, ward) {
+                            wardSelect.append($('<option>', {
+                                value: ward.id,
+                                text: ward.wardName
+                            }));
+                        });
+                    },
+                    error: function () {
+                        alert('Error loading wards');
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 </body>

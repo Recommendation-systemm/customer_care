@@ -95,8 +95,12 @@
 
 <h1>Admin Dashboard</h1>
 
-<a href="/admin" class="return-button">Back to admin</a>
+<!--<a href="/feedback/admin" class="return-button">Back to admin</a>-->
+<a th:href="@{/admin}">
+    <button>Back to admin</button>
+</a>
 <div class="dashboard-section">
+
     <h2>New Complaints</h2>
     <ul>
         <li th:each="complaint : ${newComplaints}">

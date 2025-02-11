@@ -105,46 +105,57 @@
     </style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: body"></div>
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/user/complaints}">
+        <button class="btn btn-warning">View My Complaints</button>
+    </a>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">UG Feedback Portal</a>
+    <a th:href="@{/user/compliments}">
+        <button class="btn btn-success me-2">View My Compliment</button>
+    </a>
+</div>
+<h1 class="text-center mt-4">Welcome to Our FeedBack Portal</h1>
+<p class="text-center">Please choose your action:</p>
 
-            <form sec:authorize="isAuthenticated()" method="post" action="/logout">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-
-            <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
-                <li class="nav-item">
-                    <a href="/register" class="btn btn-outline-primary me-2"> Register</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/login" class="btn btn-primary me-2">Login</a>
-                </li>
-            </ul>
-        </nav>
+<div sec:authorize="isAuthenticated()">
+    <div class="d-flex justify-content-center">
 
 
-
-
-    <h1>Welcome to Our Service Portal</h1>
-    <p>Please choose your action:</p>
-
-    <div class="button-container">
-        <button onclick="showPopup('compliment')">Place a Compliment</button>
-        <button class="secondary-btn" onclick="showPopup('complaint')">Place a Complaint</button>
     </div>
+    <div class="d-flex justify-content-center">
+        <a th:href="@{/user/complaint}">
+            <button class="btn btn-warning" >Place a Complaint</button>
+        </a>
+        <a th:href="@{/user/compliment}">
+            <button class="btn btn-success me-2" >Place a Compliment</button>
+        </a>
 
-    <div class="popup-overlay" id="popupOverlay">
-        <div class="popup-content">
-            <h2>Choose your action</h2>
-            <p>Would you like to share your details or proceed anonymously?</p>
-            <button id="loginButton">Log In</button>
-            <button id="anonymousButton">anonymous</button>
-            <br><br>
-            <button class="close-btn" onclick="closePopup()">Close</button>
-        </div>
     </div>
+</div>
+
+<div sec:authorize="!isAuthenticated()">
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-success me-2" onclick="showPopup('compliment')">Place a Compliment</button>
+        <button class="btn btn-warning" onclick="showPopup('complaint')">Place a Complaint</button>
+    </div>
+</div>
+
+
+
+<!-- Popup -->
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+        <h2>Choose your action</h2>
+        <p>Would you like to share your details or proceed anonymously?</p>
+        <button id="loginButton" class="btn btn-primary">Log In</button>
+        <button id="anonymousButton" class="btn btn-secondary">Anonymous</button>
+        <br><br>
+        <button class="btn btn-danger" onclick="closePopup()">Close</button>
+    </div>
+</div>
+<!--</body>-->
+
 
     <script>
         let chosenAction = null;
@@ -170,9 +181,9 @@
 
         document.getElementById('anonymousButton').addEventListener('click', function () {
             if (chosenAction === 'compliment') {
-                window.location.href = '/anonymous/compliment';
+                window.location.href = '/feedback/anonymous/compliment';
             } else if (chosenAction === 'complaint') {
-                window.location.href = '/anonymous/complaint';
+                window.location.href = '/feedback/anonymous/complaint';
             }
         });
     </script>

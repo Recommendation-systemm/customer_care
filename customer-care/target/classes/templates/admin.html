@@ -53,9 +53,14 @@
   </style>
 </head>
 <body>
+<div th:replace="fragments/navbar :: body"></div>
 <h1>Admin dashboard</h1>
 <p>What will you be viewing today:</p>
-<button onclick="location.href='/compliments'">View Compliments</button>
-<button class="secondary-btn" onclick="location.href='/admin/complaints'">View Complaints</button>
+<a th:href="@{/admin/compliments}">
+  <button>View Compliments</button>
+</a>
+<a th:href="@{/admin/complaints}">
+  <button class="secondary-btn"  >View Complaints</button>
+</a>
 </body>
 </html>
