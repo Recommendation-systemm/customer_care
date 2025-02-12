@@ -141,31 +141,38 @@
     <button>Back to admin</button>
 </a>
 
+<form th:action="@{/complaints/export-pdf}" method="get">
+    <label for="fromDate">From:</label>
+    <input type="date" id="fromDate" name="fromDate" required />
+
+    <label for="toDate">To:</label>
+    <input type="date" id="toDate" name="toDate" required />
+
+    <button type="submit">Export as PDF</button>
+</form>
+
+
 <div class="table-container">
     <table>
         <thead>
         <tr>
+            <th>#</th>
             <th>Title</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Sub-Category</th>
-            <th>Priority</th>
-            <th>Status</th>
+            <th>Details</th>
+            <th>Documents</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="complaint : ${complaints}">
+<!--        <tr th:each="complaint : ${complaints}">-->
+        <tr th:each="complaint, stat : ${complaints}">
+            <td th:text="${stat.count}"></td>
             <td th:text="${complaint.title}" data-label="Title">Title</td>
-            <td th:text="${complaint.description}" data-label="Description" class="description-column">Description</td>
-            <td th:text="${complaint.category}" data-label="Category">Category</td>
-            <td th:text="${complaint.subCategory}" data-label="Sub-Category">Sub-Category</td>
-            <td th:text="${complaint.priority}" data-label="Priority"
-                th:classappend="${complaint.priority == 'low' ? 'low-priority' :
-                                     complaint.priority == 'medium' ? 'medium-priority' :
-                                     complaint.priority == 'high' ? 'high-priority' : ''}">
-                Priority
+            <td th:text="${complaint.description}" data-label="Description" class="description-column">Details</td>
+            <td th:text="${#lists.size(complaint.files)}">Documents</td>
+            <td>
+                <a th:href="@{/complaints/{uuid}(uuid=${complaint.uuid})}">View Details</a>
             </td>
-            <td th:text="${complaint.status}" data-label="Status">Status</td>
         </tr>
         </tbody>
     </table>

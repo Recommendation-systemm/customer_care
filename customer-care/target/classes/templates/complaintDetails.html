@@ -147,10 +147,16 @@
     <tr><th>Description</th><td th:text="${complaint.description}">Description</td></tr>
     <tr><th>Category</th><td th:text="${complaint.category}">Category</td></tr>
     <tr><th>Sub-Category</th><td th:text="${complaint.subCategory}">Sub-Category</td></tr>
-    <tr><th>Priority</th><td th:text="${complaint.priority}">Priority</td></tr>
+<!--    <tr><th>Priority</th><td th:text="${complaint.priority}">Priority</td></tr>-->
     <tr><th>Status</th><td th:text="${complaint.status}">Status</td></tr>
-    <tr><th>Assigned To</th><td th:text="${complaint.assignedTo?.username}">Assigned To</td></tr>
-    <tr><th>Resolution</th><td th:text="${complaint.resolution}">Resolution</td></tr>
+<!--    <tr><th>Assigned To</th><td th:text="${complaint.assignedTo?.username}">Assigned To</td></tr>-->
+<!--    <tr><th>Resolution</th><td th:text="${complaint.resolution}">Resolution</td></tr>-->
+   <tr>
+       <th>Action</th>
+       <td>
+           <a th:href="@{/complaints/{id}(id=${complaint.id})}">View Details</a>
+       </td>
+   </tr>
 </table>
 
 <h2>Internal Notes</h2>

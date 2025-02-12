@@ -131,17 +131,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/complaints")
-    public String submitComplaint(Complaint complaint,Principal principal) {
-        String username = principal.getName(); // Get logged-in user
-        AppUser user = userRepository.findByEmail(username) // Fetch user entity
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        complaint.setCreatedBy(user);
-        complaintRepository.save(complaint);
-        // return "redirect:/complaintsList";
-        return "redirect:/";
-    }
     @GetMapping("/complaints")
     public String getUserComplaints(Model model, Principal principal) {
         String username = principal.getName();

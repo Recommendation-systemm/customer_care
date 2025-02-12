@@ -28,13 +28,13 @@ public class AdminController {
 
     @GetMapping("/compliments")
     public String viewCompliments(Model model) {
-        model.addAttribute("compliments", complimentRepository.findAll());
+        model.addAttribute("compliments", complimentRepository.findAllByOrderByCreatedAtDesc());
         return "complimentsList";
     }
 
     @GetMapping("/complaints")
     public String listComplaints(Model model) {
-        model.addAttribute("complaints", complaintRepository.findAll());
+        model.addAttribute("complaints", complaintRepository.findAllByOrderByCreatedAtDesc());
         return "complaintsList";
     }
 //    @GetMapping("/admin/complaints")

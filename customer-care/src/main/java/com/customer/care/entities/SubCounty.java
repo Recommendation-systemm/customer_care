@@ -1,7 +1,9 @@
 package com.customer.care.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,5 +17,7 @@ public class SubCounty {
     Long id;
     String subCountyName;
     @OneToMany(mappedBy = "subCounty",cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @JsonIgnore
     Set<Ward> wards =new HashSet<>();
 }

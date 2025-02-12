@@ -84,6 +84,7 @@
 <table>
     <thead>
     <tr>
+        <td>#</td>
         <th>Sub county</th>
         <th>Ward</th>
         <th>Department</th>
@@ -93,12 +94,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="compliment : ${compliments}">
-        <td th:text="${compliment.subCounty}">Sub-county</td>
-        <td th:text="${compliment.ward}">Ward</td>
-        <td th:text="${compliment.department}">Department</td>
+    <tr th:each="compliment,stat : ${compliments}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${compliment.ward.subCounty.subCountyName}">Sub-county</td>
+        <td  th:text="${compliment.ward.wardName}">Ward</td>
+        <td th:text="${compliment.department.name}">Department</td>
         <td th:text="${compliment.complimentType}">Feedback type</td>
-        <td th:text="${compliment.satisfaction}">Satisfied</td>
+        <td>
+            <span th:if="${compliment.satisfaction}" style="color: green;">✔</span>
+            <span th:unless="${compliment.satisfaction}" style="color: orange;">✘</span>
+        </td>
         <td th:text="${compliment.satisfactionExplanation}">Reasons</td>
 
     </tr>

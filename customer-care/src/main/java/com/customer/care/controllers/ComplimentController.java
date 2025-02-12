@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -44,20 +45,22 @@ public class ComplimentController {
     }
 
     @PostMapping("/user/compliment")
-    public String submitCompliment(Compliment compliment, Principal principal) {
+    public String submitCompliment(Compliment compliment, Principal principal, RedirectAttributes redirectAttributes) {
         String username = principal.getName(); // Get logged-in user
         AppUser user = userRepository.findByEmail(username) // Fetch user entity
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         compliment.setCreatedBy(user);
         complimentRepository.save(compliment);
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("success", "Feedback sent successfully!");
+
+        return "redirect:/user/compliment";
     }
 
     @GetMapping("/compliments")
     public String viewCompliments(Model model) {
 
-        model.addAttribute("compliments", complimentRepository.findAll());
+        model.addAttribute("compliments", complimentRepository.findAllByOrderByCreatedAtDesc());
         return "complimentsList";
     }
 

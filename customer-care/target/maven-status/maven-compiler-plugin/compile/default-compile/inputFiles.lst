@@ -6,6 +6,7 @@ C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\ComplaintController.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\ComplimentController.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\DepartmentController.java
+C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\FileController.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\RedirectController.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\SubCountyController.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\controllers\UserController.java
@@ -14,6 +15,7 @@ C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\AppUser.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\Category.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\Complaint.java
+C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\ComplaintFile.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\Compliment.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\Department.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\Role.java
@@ -24,6 +26,7 @@ C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\SubDepartment.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\entities\Ward.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\repositories\CategoryRepository.java
+C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\repositories\ComplaintFileRepository.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\repositories\ComplaintRepository.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\repositories\ComplimentRepository.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\repositories\DepartmentRepository.java
@@ -37,5 +40,6 @@ C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\services\ComplaintService.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\services\CustomUserDetailsService.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\services\DepartmentService.java
+C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\services\FileStorageService.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\services\SubCountyService.java
 C:\Users\HP\IdeaProjects\customer_care\customer-care\src\main\java\com\customer\care\services\UserService.java

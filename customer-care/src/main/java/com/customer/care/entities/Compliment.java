@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -14,15 +15,20 @@ public class Compliment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String subCounty;
-    private String ward;
-    private String department;
     private String complimentType;
-    private String satisfaction;
+    private boolean satisfaction;
     private String satisfactionExplanation;
+
+    @ManyToOne
+    @JoinColumn(name = "ward_id")
+    private Ward ward;
+
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
+    private Department department;
 
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     private AppUser createdBy;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Date createdAt = new Date();
 }

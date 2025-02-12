@@ -75,44 +75,12 @@ public class AuthController {
             result.addError(new FieldError("registerDTO","firstName",e.getMessage()));
         }
         return "registration";
-//        return "redirect:/login";
     }
-
-//    @PostMapping("/register")
-//    public String registerUser(@ModelAttribute("user") AppUser user, RedirectAttributes redirectAttributes) {
-//        userService.registerUser(user);
-//        redirectAttributes.addFlashAttribute("success", "Registration successful! You can now log in.");
-//        return "redirect:/auth/login";
-//    }
 
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
-
-//    @PostMapping("/login")
-//    public String login(@RequestParam String email,
-//                        @RequestParam String password,
-//                        RedirectAttributes redirectAttributes) {
-//        System.out.println("...........................logging in...");
-//        try {
-//            AppUser user = userService.authenticate(email, password);
-//
-//            if (!user.isVerified()) {
-//                redirectAttributes.addFlashAttribute("error", "Please verify your email before logging in.");
-//                return "redirect:/login";
-//            }
-//
-//            // Proceed with authentication (Spring Security or manual session management)
-//            return "redirect:/dashboard"; // Redirect to user dashboard
-//
-//        } catch (RuntimeException e) {
-//            redirectAttributes.addFlashAttribute("error", "Invalid email or password.");
-//            return "redirect:/login";
-//        }
-//
-//
-//    }
 
 
 

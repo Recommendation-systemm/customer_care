@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface ComplimentRepository extends JpaRepository<Compliment, Long> {
     List<Compliment> findByCreatedBy(AppUser user);
+
+    List<Compliment> findAllByOrderByCreatedAtDesc();
 }

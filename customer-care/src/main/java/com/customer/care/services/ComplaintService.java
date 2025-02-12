@@ -25,7 +25,9 @@ public class ComplaintService {
     public Page<Complaint> getAllPaged(Pageable pageable) {
         return complaintRepository.findAll(pageable);
     }
-
+    public List<Complaint> getComplaintsByDateRange(Date fromDate, Date toDate) {
+        return complaintRepository.findByCreatedAtBetween(fromDate, toDate);
+    }
     public Page<Complaint> getComplaintsPaged(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         return complaintRepository.findAll(pageable);
